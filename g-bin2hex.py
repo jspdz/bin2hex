@@ -32,18 +32,56 @@ class b2h_ui(object):
         # 为回显列表赋值
         END = 'end'
         self.display_info.delete(0, END)
-
         i = 1
         for item in fl:
             if os.path.isfile(item):
                 self.display_info.insert(END,"xxx " + str(i) + ": "+ item)
                 i=i+1
+        # 选中列表中的第0行。
+        if(i>1):
+            self.display_info.selection_set(0)
         return fl
 
+
+
     def hex_output(self):
-        tc3=messagebox.showinfo(title='消息弹窗',message='已经执行完毕！')  # return ok
+        current_index = self.display_info.curselection()
+        #print(current_index)
+        if(current_index == ()):
+            tc3=messagebox.showinfo(title='消息弹窗',message="未选中需要转换的文件。 curselection=()")  # return ok
+            print("未选中需要转换的文件。 curselection=()")
+            return
+        current_string = self.display_info.get(current_index)
+        print(current_string)
+        bin_filename = bin_file_name(str(current_string))
+        print(bin_filename)
+
+        fWrite=open(bin_filename+".hex","w")
+        with open(bin_filename, 'rb') as f:
+            fsize = os.path.getsize(bin_filename)
+            while f.tell() != fsize:
+                bindata = f.read(16)
+                for b in bindata:
+                    fWrite.write("0x%02X, " % b)
+                fWrite.write("\n")
+        fWrite.close()
+        
+        tc3=messagebox.showinfo(title='消息弹窗',message=bin_filename)  # return ok
         print (tc3)
 
+#将列表里的头去掉 "xxx 1: b.py"，剩下 “b.py”
+def bin_file_name(ss):
+    result = ""
+    max_index = len(ss)-1
+    index = 0
+
+    while ((ss[index] != ":") and (index < 10)):
+        index = index+1
+    index+=2
+    while (index <= max_index) :
+        result += ss[index]
+        index = index+1
+    return result
 
 def main():
     # 初始化对象
