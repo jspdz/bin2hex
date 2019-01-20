@@ -10,25 +10,30 @@ import os
 import errno
 import optparse
 import struct
+import threading
 
-
-class Bin2Hex:
-    def __init__(self, BinFileName):
-        self.__BinFileName = BinFileName
-        self.__HexFileName = BinFileName + ".hex"
-        if(os.path.getsize(binfile) > 10*1024*1024):
+class Bin2Hex(threading.Thread):
+    #初始化函数，输入 二进制文件名，十六进制文件名
+    def __init__(self, bin, hex):
+        threading.Thread.__init__(self) 
+        self.__bin_filename = bin
+        self.__hex_filename = hex
+        pass
+        '''
+        if(os.path.getsize(self.__bin_filename) > 10*1024*1024):
             print("容量要小于10MBytes。")
             return -1
+            '''
 
-    def readBinWriteHex(self):
-        fWrite=open(self.__HexFileName,"w")
-        with open(self.__BinFileName, 'rb') as f:
-            fsize = os.path.getsize(self.__BinFileName)
+    def run(self):
+        fWrite=open(self.__hex_filename,"w")
+        with open(self.__bin_filename, 'rb') as f:
+            fsize = os.path.getsize(self.__bin_filename)
             while f.tell() != fsize:
-                # read up to recordlength bytes from the file, don't bridge segment.
                 bindata = f.read(16)
                 for b in bindata:
-                    fWrite.write("%02X " % b)
+                    fWrite.write("0x%02X, " % b)
                 fWrite.write("\n")
         fWrite.close()
 
+        
