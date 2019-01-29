@@ -1,7 +1,7 @@
 bin2hex
 =====
 
-Simple binary file to Intel HEX file converter (bin to hex) written in python. For usage try $bin2hex.py -h
+使用python工具，简单地将二进制文件转换为十六进制数组文本文件，单位是字节。有一个简单的文件列表，选择列表中的文件名，点击转换即可实现功能。
 
 Note
 -----

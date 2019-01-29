@@ -23,7 +23,7 @@ class Bin2Hex(threading.Thread):
         if(os.path.getsize(self.__bin_filename) > 10*1024*1024):
             print("容量要小于10MBytes。")
             return -1
-            '''
+        '''
 
     def run(self):
         fWrite=open(self.__hex_filename,"w")

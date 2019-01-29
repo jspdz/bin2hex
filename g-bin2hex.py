@@ -55,7 +55,7 @@ class b2h_ui(object):
         print(current_string)
         bin_filename = bin_file_name(str(current_string))
         print(bin_filename)
-        hex_filename = str(bin_filename)+".hex"
+        hex_filename = str(bin_filename)+"_hex.txt"
 
         thread = Bin2Hex(bin_filename, hex_filename)
         thread.start()
