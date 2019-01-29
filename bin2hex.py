@@ -5,11 +5,11 @@ File: bin2hex.py
 
 """
 
-import sys
+#import sys
 import os
-import errno
-import optparse
-import struct
+#import errno
+#import optparse
+#import struct
 import threading
 
 class Bin2Hex(threading.Thread):

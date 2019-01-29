@@ -1,7 +1,7 @@
 import tkinter
 import os
 from tkinter import messagebox
-from bin2hex import *
+from bin2hex import Bin2Hex
 
 class b2h_ui(object):
     def __init__(self):
